@@ -1,6 +1,6 @@
 %define version 1.6.1
 %define fversion %version
-%define release %mkrel 2
+%define release %mkrel 3
 %define iwver 0.7.0beta5
 
 Summary:   CheckInstall installations tracker
@@ -45,6 +45,7 @@ install -D -m 755 installwatch-%iwver/installwatch.so %buildroot/%{_libdir}/chec
 install -m 755 checkinstallrc-dist %buildroot/%{_libdir}/checkinstall/checkinstallrc
 install -D -m 644 locale/checkinstall-es.mo %buildroot%_libdir/checkinstall/locale/es/LC_MESSAGES/checkinstall.mo
 perl -pi -e "s!#PREFIX#!%_prefix!" %buildroot%_bindir/installwatch
+perl -pi -e "s!%_prefix/lib!%_libdir!" %buildroot%_bindir/checkinstall
 
 %clean
 rm -rf %buildroot
