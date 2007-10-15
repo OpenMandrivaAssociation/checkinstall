@@ -45,7 +45,7 @@ install -D -m 755 installwatch-%iwver/installwatch.so %buildroot/%{_libdir}/chec
 install -m 755 checkinstallrc-dist %buildroot/%{_libdir}/checkinstall/checkinstallrc
 install -D -m 644 locale/checkinstall-es.mo %buildroot%_libdir/checkinstall/locale/es/LC_MESSAGES/checkinstall.mo
 perl -pi -e "s!#PREFIX#!%_prefix!" %buildroot%_bindir/installwatch
-perl -pi -e "s!%_prefix/lib!%_libdir!" %buildroot%_bindir/checkinstall
+perl -pi -e "s!%_prefix/lib!%_libdir!" %buildroot%_bindir/*
 
 %clean
 rm -rf %buildroot
