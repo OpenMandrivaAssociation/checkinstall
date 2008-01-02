@@ -12,6 +12,7 @@ Group:     System/Configuration/Packaging
 Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.bz2
 Patch0:	   checkinstall-1.6.0-mdk.patch
 Patch1:    checkinstall-1.6.1-64bit.patch
+BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
 Provides: libcheckinstall1
 Obsoletes: libcheckinstall1
