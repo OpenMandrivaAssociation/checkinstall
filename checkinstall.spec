@@ -1,6 +1,6 @@
 %define version 1.6.1
 %define fversion %version
-%define release %mkrel 4
+%define release %mkrel 6
 %define iwver 0.7.0beta5
 
 Summary:   CheckInstall installations tracker
