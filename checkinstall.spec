@@ -1,6 +1,6 @@
 %define version 1.6.2.16
 %define fversion %version
-%define release %mkrel 0.1
+%define release %mkrel 0.2
 
 Summary:   CheckInstall installations tracker
 Name:      checkinstall
