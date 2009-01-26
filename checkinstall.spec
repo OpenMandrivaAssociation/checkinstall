@@ -12,6 +12,7 @@ Group:     System/Configuration/Packaging
 Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.bz2
 Patch0:	   checkinstall-mdv.patch
 Patch2:	   checkinstall-1.6.1-rpm-version-check.patch
+Patch3:    checkinstall-fix-glibc-detection.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
 Provides: libcheckinstall1
@@ -31,7 +32,7 @@ distribution's  standard package management  utilities.
 %setup -q -n %name
 %patch0 -p1 -b .mdv
 %patch2 -p0
-
+%patch3 -p1
 %build
 make
 
