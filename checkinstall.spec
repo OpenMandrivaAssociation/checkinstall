@@ -1,17 +1,18 @@
 %define version 1.6.1
 %define fversion %version
-%define release %mkrel 6
+%define release %mkrel 7
 %define iwver 0.7.0beta5
 
 Summary:   CheckInstall installations tracker
 Name:      checkinstall
 Version:   %version
 Release:   %release
-License:   GPL
+License:   GPLv2+
 Group:     System/Configuration/Packaging
 Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.bz2
 Patch0:	   checkinstall-1.6.0-mdk.patch
 Patch1:    checkinstall-1.6.1-64bit.patch
+Patch2:	   checkinstall-1.6.1-rpm-version-check.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
 Provides: libcheckinstall1
@@ -32,6 +33,7 @@ distribution's  standard package management  utilities.
 ln -s installwatch-%iwver installwatch-0.7.0beta4
 %patch0 -p1 -b .mdv
 %patch1 -p1 -b .64bit
+%patch2 -p0
 
 %build
 make
