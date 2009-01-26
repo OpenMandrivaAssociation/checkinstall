@@ -1,7 +1,6 @@
-%define version 1.6.1
+%define version 1.6.2.16
 %define fversion %version
-%define release %mkrel 7
-%define iwver 0.7.0beta5
+%define release %mkrel 0.1
 
 Summary:   CheckInstall installations tracker
 Name:      checkinstall
@@ -9,9 +8,9 @@ Version:   %version
 Release:   %release
 License:   GPLv2+
 Group:     System/Configuration/Packaging
+#gw git snapshot
 Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.bz2
-Patch0:	   checkinstall-1.6.0-mdk.patch
-Patch1:    checkinstall-1.6.1-64bit.patch
+Patch0:	   checkinstall-mdv.patch
 Patch2:	   checkinstall-1.6.1-rpm-version-check.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
@@ -29,10 +28,8 @@ distribution's  standard package management  utilities.
 
 %prep
 
-%setup -q -n %name-%fversion
-ln -s installwatch-%iwver installwatch-0.7.0beta4
+%setup -q -n %name
 %patch0 -p1 -b .mdv
-%patch1 -p1 -b .64bit
 %patch2 -p0
 
 %build
@@ -42,8 +39,8 @@ make
 rm -rf %buildroot
 install -D -m 755 checkinstall %buildroot/%{_bindir}/checkinstall
 install -D -m 755 makepak %buildroot/%{_sbindir}/makepak
-install -m 755 installwatch-%iwver/installwatch %buildroot/%{_bindir}
-install -D -m 755 installwatch-%iwver/installwatch.so %buildroot/%{_libdir}/checkinstall/installwatch.so
+install -m 755 installwatch/installwatch %buildroot/%{_bindir}
+install -D -m 755 installwatch/installwatch.so %buildroot/%{_libdir}/checkinstall/installwatch.so
 install -m 755 checkinstallrc-dist %buildroot/%{_libdir}/checkinstall/checkinstallrc
 install -D -m 644 locale/checkinstall-es.mo %buildroot%_libdir/checkinstall/locale/es/LC_MESSAGES/checkinstall.mo
 perl -pi -e "s!#PREFIX#!%_prefix!" %buildroot%_bindir/installwatch
