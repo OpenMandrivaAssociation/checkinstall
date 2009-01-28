@@ -1,6 +1,6 @@
 %define version 1.6.2.16
 %define fversion %version
-%define release %mkrel 0.2
+%define release %mkrel 0.3
 
 Summary:   CheckInstall installations tracker
 Name:      checkinstall
@@ -13,6 +13,7 @@ Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.bz2
 Patch0:	   checkinstall-mdv.patch
 Patch2:	   checkinstall-1.6.1-rpm-version-check.patch
 Patch3:    checkinstall-fix-glibc-detection.patch
+Patch4:    checkinstall-rpm-set-buildroot.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
 Provides: libcheckinstall1
@@ -33,6 +34,7 @@ distribution's  standard package management  utilities.
 %patch0 -p1 -b .mdv
 %patch2 -p0
 %patch3 -p1
+%patch4 -p1 -b .buildroot
 %build
 make
 
@@ -45,8 +47,8 @@ install -D -m 755 installwatch/installwatch.so %buildroot/%{_libdir}/checkinstal
 install -m 755 checkinstallrc-dist %buildroot/%{_libdir}/checkinstall/checkinstallrc
 install -D -m 644 locale/checkinstall-es.mo %buildroot%_libdir/checkinstall/locale/es/LC_MESSAGES/checkinstall.mo
 perl -pi -e "s!#PREFIX#!%_prefix!" %buildroot%_bindir/installwatch
-perl -pi -e "s!/lib/!/%_lib/!" %buildroot%_bindir/installwatch
-perl -pi -e "s!%_prefix/lib!%_libdir!" %buildroot%_bindir/*
+perl -pi -e "s!/lib/!/%_lib/!" %buildroot%_bindir/*
+
 
 %clean
 rm -rf %buildroot
