@@ -1,6 +1,7 @@
 %define version 1.6.2.16
-%define fversion %version
-%define release %mkrel 0.4
+%define fversion 1.6.2
+%define release %mkrel 1
+
 
 Summary:   CheckInstall installations tracker
 Name:      checkinstall
@@ -9,11 +10,13 @@ Release:   %release
 License:   GPLv2+
 Group:     System/Configuration/Packaging
 #gw git snapshot
-Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.bz2
+Source:    http://checkinstall.izto.org/files/source/%{name}-%{fversion}.tar.gz
 Patch0:	   checkinstall-mdv.patch
 Patch2:	   checkinstall-1.6.1-rpm-version-check.patch
 Patch3:    checkinstall-fix-glibc-detection.patch
 Patch4:    checkinstall-rpm-set-buildroot.patch
+#gw from Debian, build with new glibc
+Patch5:	   21build-glibc-2.10.diff
 BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
 Provides: libcheckinstall1
@@ -30,11 +33,13 @@ distribution's  standard package management  utilities.
 
 %prep
 
-%setup -q -n %name
+%setup -q -n %name-%fversion
 %patch0 -p1 -b .mdv
 %patch2 -p0
-%patch3 -p1
+%patch3 -p0 -b .glibc
 %patch4 -p1 -b .buildroot
+ln -s installwatch installwatch-0.7.0beta5
+%patch5 -p1
 %build
 make
 
