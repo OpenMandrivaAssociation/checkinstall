@@ -1,6 +1,6 @@
 %define version 1.6.2.16
 %define fversion 1.6.2
-%define release %mkrel 1
+%define release %mkrel 2
 
 
 Summary:   CheckInstall installations tracker
