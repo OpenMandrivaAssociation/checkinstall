@@ -1,0 +1,37 @@
+--- checkinstall.versioncheck	2009-01-26 11:08:15.000000000 +0100
++++ checkinstall	2009-01-26 11:08:23.000000000 +0100
+@@ -2069,19 +2069,11 @@
+ # "--target=arch" instead of "--target arch"
+ # are 3.x < version < 4.0.3
+ 
+-if [ $RPM_MAJOR_VERSION -eq 4 -a $RPM_PATCH_LEVEL -lt 3 ]; then
+-   RPM_TARGET_FLAG="--target="
+-else
+    RPM_TARGET_FLAG="--target "
+-fi
+ 
+ # rpmbuild seems to exist only in RPM 4
+ 
+-if [ $RPM_MAJOR_VERSION -eq 4 ]; then
+    RPMBUILD="rpmbuild"
+-else
+-   RPMBUILD="rpm"
+-fi
+ 
+ if [ "$RPMBUILD" = "rpmbuild" -a ! -x "`which rpmbuild 2> /dev/null`" ]; then
+    echo
+@@ -2097,14 +2089,7 @@
+ # Find out the RPM source directory path
+ 
+ if ! [ "$RPMSOURCEDIR" ]; then
+-   if [ $RPM_MAJOR_VERSION -eq 3 -a $RPM_PATCH_LEVEL -ge 3 -o $RPM_MAJOR_VERSION -gt 3 ]; then
+       RPMSOURCEDIR="`rpm --eval=%_topdir`"
+-   else
+-      RPMSOURCEDIR="NOT-FOUND"
+-      for directory in packages OpenLinux redhat RedHat rpm RPM "" ; do
+-         [ -d /usr/src/${directory}/SOURCES ] && RPMSOURCEDIR="/usr/src/${directory}"
+-      done
+-   fi
+ fi
+ 
+ [ $DEBUG -gt 0 ] && echo "debug: RPMSOURCEDIR=$RPMSOURCEDIR"

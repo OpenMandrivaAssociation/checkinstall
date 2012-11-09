@@ -1,0 +1,29 @@
+diff -p -up checkinstall/checkinstall.buildroot checkinstall/checkinstall
+--- checkinstall/checkinstall.buildroot	2009-01-28 12:09:46.000000000 +0100
++++ checkinstall/checkinstall	2009-01-28 12:11:52.000000000 +0100
+@@ -2361,7 +2361,6 @@ Release:   $RELEASE
+ License: $LICENSE
+ Packager:  checkinstall-$CHECKINSTALL_VERSION
+ Group:     $PKG_GROUP          
+-BuildRoot: $BROOTPATH
+ Provides:  $PROVIDES
+ Requires:  $REQUIRES,/bin/sh
+ %define _unpackaged_files_terminate_build      0
+@@ -2426,7 +2425,7 @@ if [ $REVIEW_SPEC -gt 0 ]; then
+    $VISUAL "$SPEC_PATH" 
+ fi
+ 
+-BUILDROOT=`egrep '^[Bb]uild[Rr]oot' < "$SPEC_PATH" | cut -f2 -d:| sed 's/^ *//g'| sed 's/ *$//g'` # The sed commands remove leading/trailing whitespaces
++BUILDROOT=$BROOTPATH
+ 
+ # We make sure that we have a valid RELEASE number
+ 
+@@ -2449,7 +2448,7 @@ cd "$DIRECTORIO_FUENTE"
+ 
+ echo
+ echogn "Building RPM package..."
+-$RPMBUILD -bb ${RPM_TARGET_FLAG}${ARCHITECTURE} "$SPEC_PATH" &> ${TMP_DIR}/rpmbuild.log
++$RPMBUILD --define "buildroot $BROOTPATH" -bb ${RPM_TARGET_FLAG}${ARCHITECTURE} "$SPEC_PATH" &> ${TMP_DIR}/rpmbuild.log
+ okfail
+ 
+ if [ $? -gt 0 ]; then

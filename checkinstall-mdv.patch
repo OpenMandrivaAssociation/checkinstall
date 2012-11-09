@@ -1,0 +1,110 @@
+diff -p -up checkinstall/checkinstall.mdv checkinstall/checkinstall
+--- checkinstall/checkinstall.mdv	2009-01-26 13:14:29.000000000 +0100
++++ checkinstall/checkinstall	2009-01-28 12:14:17.000000000 +0100
+@@ -492,7 +492,7 @@ function copy_dir_hierarchy {
+ ckversion
+ echo
+ 
+-CHECKINSTALLRC=${CHECKINSTALLRC:-${INSTALLDIR}/checkinstallrc}
++CHECKINSTALLRC=${CHECKINSTALLRC:-${INSTALLDIR}/lib/checkinstall/checkinstallrc}
+ if ! [ -f $CHECKINSTALLRC ]; then
+    echog "The checkinstallrc file was not found at:\n$CHECKINSTALLRC"
+    echo
+@@ -869,7 +869,7 @@ shift
+ 
+ ################################################################
+ # User-configurable variables were moved to the checkinstallrc #
+-# file which is probably found at /usr/local/lib/checkinstall  #          
++# file which is probably found at /usr/lib/checkinstall  #          
+ #                                                              #
+ #                  DO NOT modify them here!!                   #
+ ################################################################
+@@ -1242,7 +1242,7 @@ esac
+ if ! [ "$ARCHITECTURE" ]; then
+    ARCHITECTURE=`uname -m`
+    echo $ARCHITECTURE | grep -e "i[3456]86" &> /dev/null
+-   [ $? -eq 0 ] && ARCHITECTURE=i386  # Arch will be "i386" for any of
++   [ $? -eq 0 ] && ARCHITECTURE=i586  # Arch will be "i386" for any of
+                                     # i386, i486, i586 or i686.
+                                       # You can change this with "--arch"
+ 
+@@ -1848,8 +1848,8 @@ if [ $COMPRESS_MAN -eq 1 ]; then
+  cd $BUILD_DIR
+  
+  # Compress man pages
+- COMPRESS="gzip -9"
+- COMPRESS_EXT=.gz
++ COMPRESS="lzma -9"
++ COMPRESS_EXT=.lzma
+  
+  for d in ./usr/local/man/man* ./usr/local/man/*/man* ./usr/local/info \
+  	./usr/local/share/man/man* ./usr/local/share/man/*/man* \
+@@ -2379,6 +2379,7 @@ Group:     $PKG_GROUP          
+ BuildRoot: $BROOTPATH
+ Provides:  $PROVIDES
+ Requires:  $REQUIRES,/bin/sh
++%define _unpackaged_files_terminate_build      0
+ 
+ %description
+ EOF
+diff -p -up checkinstall/checkinstallrc-dist.mdv checkinstall/checkinstallrc-dist
+--- checkinstall/checkinstallrc-dist.mdv	2009-01-26 13:14:29.000000000 +0100
++++ checkinstall/checkinstallrc-dist	2009-01-28 12:14:03.000000000 +0100
+@@ -16,14 +16,14 @@
+ DEBUG=0
+ 
+ # Location of the "installwatch" program
+-INSTALLWATCH_PREFIX="/usr/local"
++INSTALLWATCH_PREFIX="/usr"
+ INSTALLWATCH=${INSTALLWATCH_PREFIX}/bin/installwatch
+ 
+ # Location of the makepkg program. "makepak" is the default, and is 
+ # included with checkinstall. If you want to use Slackware's native "makepkg"
+ # then set this to "makepkg"
+ 
+-MAKEPKG=/sbin/makepkg
++MAKEPKG=/usr/sbin/makepkg
+ 
+ # makepkg optional flags. These are recommended if running a newer Slackware
+ # version: "-l y -c n"
+@@ -36,10 +36,10 @@ MAKEPKG_FLAGS="-l y -c n"
+ SHOW_MAKEPKG=0
+ 
+ # Where will we keep our temp files?
+-BASE_TMP_DIR=/var/tmp   ##  Don't set this to /tmp or / !! 
++BASE_TMP_DIR=$HOME/tmp   ##  Don't set this to /tmp or / !! 
+ 
+ # Where to place the installed document files
+-DOC_DIR=""
++DOC_DIR="/usr/share/doc"
+ 
+ # Default architecture type (Leave it empty to allow auto-guessing)
+ ARCHITECTURE=""
+@@ -49,7 +49,7 @@ ARCHITECTURE=""
+ #   R : RPM
+ #   D : Debian
+ 
+-INSTYPE=""
++INSTYPE="R"
+ 
+ # Storage directory for newly created packages
+ # By default they will be stored at the default
+@@ -137,3 +137,6 @@ REVIEW_CONTROL=0
+       
+ # Install the package or just create it?
+ INSTALL=0
++
++# gw special RPM group for checkinstalled packages
++PKG_GROUP=checkinstall
+diff -p -up checkinstall/installwatch/installwatch.mdv checkinstall/installwatch/installwatch
+--- checkinstall/installwatch/installwatch.mdv	2009-01-26 13:14:29.000000000 +0100
++++ checkinstall/installwatch/installwatch	2009-01-28 12:14:03.000000000 +0100
+@@ -26,6 +26,8 @@ if test -d $PREFIX/lib64 && test "$LIB64
+ else
+ 	LIBDIR=$PREFIX/lib
+ fi
++
++LIBDIR=$LIBDIR/checkinstall
+   
+ BASE_TMP_DIR=/tmp
+   
