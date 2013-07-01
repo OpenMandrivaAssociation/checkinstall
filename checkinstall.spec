@@ -3,7 +3,7 @@
 %define release %mkrel 4
 
 
-Summary:   CheckInstall installations tracker
+Summary:   Installations tracker
 Name:      checkinstall
 Version:   %version
 Release:   %release
