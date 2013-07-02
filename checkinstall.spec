@@ -1,6 +1,6 @@
 %define version 1.6.2.16
 %define fversion 1.6.2
-%define release %mkrel 4
+%define release  5
 
 
 Summary:   Installations tracker
@@ -17,7 +17,6 @@ Patch3:    checkinstall-fix-glibc-detection.patch
 Patch4:    checkinstall-rpm-set-buildroot.patch
 #gw from Debian, build with new glibc
 Patch5:	   21build-glibc-2.10.diff
-BuildRoot: %{_tmppath}/%{name}-buildroot
 Url: http://asic-linux.com.mx/~izto/checkinstall/
 Provides: libcheckinstall1
 Obsoletes: libcheckinstall1
