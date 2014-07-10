@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 %define fversion 1.6.2
 
 Summary:   CheckInstall installations tracker
