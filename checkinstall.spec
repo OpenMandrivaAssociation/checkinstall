@@ -5,7 +5,7 @@
 Summary:   CheckInstall installations tracker
 Name:      checkinstall
 Version:   1.6.2.16
-Release:   10
+Release:   11
 License:   GPLv2+
 Group:     System/Configuration/Packaging
 #gw git snapshot
