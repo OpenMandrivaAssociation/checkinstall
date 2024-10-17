@@ -16,7 +16,7 @@ Patch3:    installwatch-glibc_minor.patch
 Patch4:    checkinstall-mdv-rpm-set-buildroot.patch
 #gw from Debian, build with new glibc
 Patch5:    checkinstall-1.6.1-deb-mdv-build-with-new-glibc.patch
-Url:       http://asic-linux.com.mx/~izto/checkinstall/
+Url:       https://asic-linux.com.mx/~izto/checkinstall/
 Requires:  rpm-build
 
 %description
