@@ -19,6 +19,7 @@ Patch5:    checkinstall-1.6.1-deb-mdv-build-with-new-glibc.patch
 Url:       https://asic-linux.com.mx/~izto/checkinstall/
 Requires:  rpm-build
 
+BuildRequires:	make
 %description
 CheckInstall keeps track of all the files created or modified by your 
 installation script ("make install" "make install_modules", "setup", etc),
